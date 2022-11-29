@@ -1,0 +1,13 @@
+$light: #d90000;
+
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: rgb(34, 34, 34);
+}
+
+h1 {
+    color: aliceblue;
+    text-align: center;
+    margin-top: 30px;
+}
