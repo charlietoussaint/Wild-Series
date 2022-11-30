@@ -1,4 +1,5 @@
 $light: #000000;
+$info: #FF0000;
 
 @import "~bootstrap/scss/bootstrap";
 
@@ -13,5 +14,13 @@ h1 {
 }
 
 a {
-    color: aliceblue;
+    color: #000000;
+    $display-font-weight: 500;
+}
+
+.indexProgram {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
 }

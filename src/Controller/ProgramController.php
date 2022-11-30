@@ -19,7 +19,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/show/{id<^[0-9]+$>}', name: 'show')]
+    #[Route('/show/{id<^[0-9]+$>}', name: 'program_show')]
     public function show(int $id, ProgramRepository $programRepository): Response
     {
         $program = $programRepository->findOneBy(['id' => $id]);
@@ -34,4 +34,22 @@ class ProgramController extends AbstractController
             'program' => $program,
         ]);
     }
+
+    // #[Route('/category/{id<^[0-9]+$>}', name: 'category_show')]
+    // public function showCategory(int $id, ProgramRepository $programRepository): Response
+    // {
+    //     $programs = $programRepository->findBy(
+    //         ['category' => $id],
+    //     );
+    //     // same as $program = $programRepository->find($id);
+
+    //     if (!$programs) {
+    //         throw $this->createNotFoundException(
+    //             'No program with id : ' . $id . ' found in program\'s table.'
+    //         );
+    //     }
+    //     return $this->render('category/show.html.twig', [
+    //         'programs' => $programs,
+    //     ]);
+    // }
 }
