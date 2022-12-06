@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Toutes les séries de la table program :
+	<h1>Toutes nos séries :
 	</h1>
 	<div class="indexProgram">
 		{% for program in programs %}
@@ -16,7 +16,7 @@
 					<p class="card-text text-white">Catégorie :
 						{{ program.category.name }}<br>{{ program.synopsis }}
 						<br>
-						<a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary bg-info">Voir la fiche</a>
+						<a href="{{ path("show", { id: program.id }) }}" class="btn btn-primary bg-info">Voir la fiche</a>
 					</p>
 				</div>
 			</div>
@@ -24,8 +24,5 @@
 			Aucune série trouvée.
 		{% endfor %}
 	</div>
-	<a href="{{ path('app_index') }}">
-		Retour à l'accueil
-	</a>
 
 {% endblock %}
