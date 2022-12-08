@@ -44,6 +44,8 @@ class ProgramController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             // Deal with the submitted data
             $programRepository->save($program, true);
+
+            $this->addFlash('sucessColor', 'La nouvelle série a bien été créée');
             // Redirect to categories list
             return $this->redirectToRoute('program_index');
         }
