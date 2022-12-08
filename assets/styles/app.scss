@@ -1,10 +1,11 @@
 $light: #000000;
 $info: #FF0000;
-
 $sucessColor: #02ca0f;
 $errorColor : rgba(100, 6, 6, 0.895);
 
 $theme-colors: (
+    "light": $light,
+    "info" : $info,
     "sucessColor": $sucessColor,
     "errorColor" : $errorColor
 );

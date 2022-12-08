@@ -22,7 +22,7 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
          * de te générer toutes les données que tu souhaites
          */
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 1; $i < 6; $i++) {
             for ($j = 1; $j < 6; $j++) {
                 for ($k = 1; $k < 11; $k++) {
                     $episode = new Episode();
@@ -41,7 +41,7 @@ class EpisodeFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return [
-            ProgramFixtures::class,
+            SeasonFixtures::class,
         ];
     }
 }
