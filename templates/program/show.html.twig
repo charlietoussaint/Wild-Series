@@ -17,7 +17,14 @@
 				<p>{{ season.year }}{{ season.description }}</p>
 				<a href="{{ path("program_season_show", { program_id: program.id, season_id: season.id }) }}" class="btn btn-primary bg-info">Plus d'infos</a>
 			{% endfor %}
-
+			<strong>Acteurs :</strong>
+			<ul>
+				{% for actor in program.actors %}
+					<li>{{ actor.name }}</li>
+				{% else %}
+					<li>Aucun acteur pour cette série</li>
+				{% endfor %}
+			</ul>
 		</div>
 	</div>
 

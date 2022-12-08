@@ -22,7 +22,7 @@ class SeasonFixtures extends Fixture implements DependentFixtureInterface
          * de te générer toutes les données que tu souhaites
          */
 
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 1; $i < 6; $i++) {
             for ($j = 1; $j < 6; $j++) {
 
                 $season = new Season();
