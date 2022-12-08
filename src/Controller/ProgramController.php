@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Episode;
 use App\Entity\Program;
+use App\Form\ProgramType;
 use App\Entity\Season;
 use App\Repository\SeasonRepository;
 use App\Repository\ProgramRepository;
@@ -13,9 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+#[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
 {
-    #[Route('/program/', methods: ['GET'], name: 'index')]
+    #[Route('/', methods: ['GET'], name: 'index')]
     public function index(ProgramRepository $programRepository): Response
     {
         $programs = $programRepository->findAll();
@@ -25,25 +28,31 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    // #[Route('/show/{id<^[0-9]+$>}', name: 'program_show')]
-    // public function show(int $id, ProgramRepository $programRepository, SeasonRepository $seasonRepository): Response
-    // {
-    //     $program = $programRepository->findOneBy(['id' => $id]);
-    //     // same as $program = $programRepository->find($id);
+    #[Route('/new', name: 'new')]
+    public function new(Request $request, ProgramRepository $programRepository): Response
+    {
+        // Create a new Object
+        $program = new Program();
 
-    //     if (!$program) {
-    //         throw $this->createNotFoundException(
-    //             'No program with id : ' . $id . ' found in program\'s table.'
-    //         );
-    //     }
+        // Create the form, linked with $program
+        $form = $this->createForm(ProgramType::class, $program);
 
-    //     $seasons = $seasonRepository->findBy(['id' => $id]);
+        // Get data from HTTP request
+        $form->handleRequest($request);
 
-    //     return $this->render('program/show.html.twig', [
-    //         'program' => $program,
-    //         'seasons' => $seasons,
-    //     ]);
-    // }
+        // Was the form submitted ?
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Deal with the submitted data
+            $programRepository->save($program, true);
+            // Redirect to categories list
+            return $this->redirectToRoute('program_index');
+        }
+
+        // Render the form (best practice)
+        return $this->renderForm('program/new.html.twig', [
+            'form' => $form,
+        ]);
+    }
 
     #[Route('/show/{id}/', requirements: ['id' => '\d+'], methods: ['GET'], name: 'show')]
     public function show(Program $program, ProgramRepository $programRepository): Response
@@ -59,28 +68,6 @@ class ProgramController extends AbstractController
             'program' => $program,
         ]);
     }
-
-
-    //     #[Route('/program/{programId}/seasons/{seasonId}', name: 'program_season_show')]
-    //     public function showSeason(int $programId, ProgramRepository $programRepository, int $seasonId, SeasonRepository $seasonRepository): Response
-    //     {
-    //         $program = $programRepository->findOneBy(['id' => $programId]);
-    //         // same as $program = $programRepository->find($id);
-
-    //         if (!$program) {
-    //             throw $this->createNotFoundException(
-    //                 'No program with id : ' . $programId . ' found in program\'s table.'
-    //             );
-    //         }
-
-    //         $seasons = $seasonRepository->findOneBy(['id' => $seasonId]);
-
-    //         return $this->render('program/season_show.html.twig', [
-    //             'program' => $program,
-    //             'seasons' => $seasons,
-    //         ]);
-    //     }
-    // }
 
     #[Route('/{program_id}/seasons/{season_id}', methods: ['GET'], name: 'season_show')]
     #[Entity('program', options: ['mapping' => ['program_id' => 'id']])]
@@ -105,7 +92,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{program_id}/season/{season_id}/episode/{episode_id}', methods: ['GET'], name: 'program_episode_show')]
+    #[Route('/{program_id}/season/{season_id}/episode/{episode_id}', methods: ['GET'], name: 'episode_show')]
     #[Entity('program', options: ['mapping' => ['program_id' => 'id']])]
     #[Entity('season', options: ['mapping' => ['season_id' => 'id']])]
     #[Entity('episode', options: ['mapping' => ['episode_id' => 'id']])]
@@ -137,3 +124,48 @@ class ProgramController extends AbstractController
         ]);
     }
 }
+
+
+    // #LE GRAND CIMETIERE DES FONCTIONS
+
+    // #[Route('/show/{id<^[0-9]+$>}', name: 'program_show')]
+    // public function show(int $id, ProgramRepository $programRepository, SeasonRepository $seasonRepository): Response
+    // {
+    //     $program = $programRepository->findOneBy(['id' => $id]);
+    //     // same as $program = $programRepository->find($id);
+
+    //     if (!$program) {
+    //         throw $this->createNotFoundException(
+    //             'No program with id : ' . $id . ' found in program\'s table.'
+    //         );
+    //     }
+
+    //     $seasons = $seasonRepository->findBy(['id' => $id]);
+
+    //     return $this->render('program/show.html.twig', [
+    //         'program' => $program,
+    //         'seasons' => $seasons,
+    //     ]);
+    // }
+
+
+        //     #[Route('/program/{programId}/seasons/{seasonId}', name: 'program_season_show')]
+    //     public function showSeason(int $programId, ProgramRepository $programRepository, int $seasonId, SeasonRepository $seasonRepository): Response
+    //     {
+    //         $program = $programRepository->findOneBy(['id' => $programId]);
+    //         // same as $program = $programRepository->find($id);
+
+    //         if (!$program) {
+    //             throw $this->createNotFoundException(
+    //                 'No program with id : ' . $programId . ' found in program\'s table.'
+    //             );
+    //         }
+
+    //         $seasons = $seasonRepository->findOneBy(['id' => $seasonId]);
+
+    //         return $this->render('program/season_show.html.twig', [
+    //             'program' => $program,
+    //             'seasons' => $seasons,
+    //         ]);
+    //     }
+    // }

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Season;
 use App\Repository\SeasonRepository;
 use App\Repository\ProgramRepository;
 use App\Repository\EpisodeRepository;
@@ -9,13 +10,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/season')]
 class SeasonController extends AbstractController
 {
-    #[Route('/season', name: 'app_season')]
-    public function index(): Response
+    #[Route('/', name: 'app_season_index', methods: ['GET'])]
+    public function index(SeasonRepository $seasonRepository): Response
     {
         return $this->render('season/index.html.twig', [
-            'controller_name' => 'SeasonController',
+            'seasons' => $seasonRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'app_season_show', methods: ['GET'])]
+    public function show(Season $season): Response
+    {
+        return $this->render('season/show.html.twig', [
+            'season' => $season,
         ]);
     }
 

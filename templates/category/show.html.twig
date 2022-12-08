@@ -19,7 +19,7 @@
 				<h3 class="card-title text-white">{{ program.title }}</h3>
 				<p class="card-text text-white">Catégorie :
 					{{ program.category.name }}<br>{{ program.synopsis }}</p>
-				<a href="{{ path("show", { id: program.id, }) }}" class="btn btn-primary bg-info">Voir la fiche</a>
+				<a href="{{ path("program_show", { id: program.id }) }}" class="btn btn-primary bg-info">Voir la fiche</a>
 			</div>
 		</div>
 	{% else %}

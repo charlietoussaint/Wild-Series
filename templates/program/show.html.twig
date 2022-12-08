@@ -15,7 +15,7 @@
 			{% for season in program.seasons %}
 				{# {{ dump(season.id) }} #}
 				<p>{{ season.year }}{{ season.description }}</p>
-				<a href="{{ path("season_show", { program_id: program.id, season_id: season.id }) }}" class="btn btn-primary bg-info">Plus d'infos</a>
+				<a href="{{ path("program_season_show", { program_id: program.id, season_id: season.id }) }}" class="btn btn-primary bg-info">Plus d'infos</a>
 			{% endfor %}
 
 		</div>
