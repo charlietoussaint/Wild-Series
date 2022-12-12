@@ -1,8 +1,12 @@
 {% extends "base.html.twig" %}
 
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
 {% block body %}
-	{{ form_start(form) }}
-	{{ form_widget(form) }}
+	<div class="AddProgram d-flex justify-content-center">
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
 	<button type="submit">Add Program</button>
-	{{ form_end(form) }}
+		{{ form_end(form) }}
+	</div>
 {% endblock %}
