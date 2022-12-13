@@ -14,7 +14,7 @@
 				<div class="card-body">
 					<h3 class="card-title text-white">{{ program.title }}</h3>
 					<p class="card-text text-white">Catégorie :
-						{{ program.category.name }}<br>{{ program.synopsis }}
+						{{ program.category.name }}<br>Description : {{ program.synopsis }}
 						<br>
 						<a href="{{ path("program_show", {slug: program.slug}) }}" class="btn btn-primary bg-info">Voir la fiche</a>
 					</p>
